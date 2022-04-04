@@ -14,7 +14,10 @@ $(function() {
             }).show();
             filterTopics();
             if(event.type == 'keypress' && event.which == 13) {
-                openVisibleLinks(WARN_IF_OPEN_SO_MANY_LINKS);
+                let opened = openVisibleLinks(WARN_IF_OPEN_SO_MANY_LINKS);
+                if(opened > 1) {
+                    this.value = "";
+                }
             }
         });
         filterTopics();
@@ -83,10 +86,16 @@ $(function() {
         var $links = $(".outline-2 a[href]:visible");
         if($links.length > warningLimit) {
             let ok = confirm("Are you sure you want to open " + $links.length + " links in tabs?");
-            if(!ok) return;
+            if(!ok) return 0;
         }
-        $links.each(function () {
-            window.open(this.href,'_blank','noreferrer, noopener');
-        });
+        if($links.length == 1) {
+            window.location.href = $links[0].href;
+            return 1;
+        } else {
+            $links.each(function () {
+                window.open(this.href,'_blank','noreferrer, noopener');
+            });
+            return $links.length;
+        }
     }
 });
