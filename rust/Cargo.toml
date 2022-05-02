@@ -1,0 +1,18 @@
+[package]
+name = "linkz"
+version = "0.1.0"
+edition = "2021"
+authors = ["Andreas Sahlbach"]
+license = "Apache-2.0"
+description = """
+This file is part of the org-linkz package for emacs. It allows parsing the exported
+linkz.json file to find urls and descriptions that matches keywords or tags of the link.
+Tags need to start with '#', all other words are searched in description links.
+Positive results need to match all given user input.
+"""
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { version = "3.1.13", features = ["cargo"] }
+serde_json = "1.0.80"
